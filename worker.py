@@ -49,13 +49,10 @@ class Worker(object):
         return total
 
     def get_songs(self):
-        import song
-
         total = self.get_total()
         # total = 2
         self.url = self._format_url % (self.list_id, total)
 
-        print self.url
         content = self.get_content(self.url)
         trackers = content["response"]["listtracks"]
 
@@ -64,14 +61,7 @@ class Worker(object):
         for item in trackers:
             tracker = item["track"]
             s = song.Song()
-            s.title = tracker["title"]
-
-            if tracker.get('artists'):
-                s.artist = [a["name"]
-                            for a in tracker["artists"] if a.get('name')]
-
-            if tracker.get('album') and tracker['album'].get('name'):
-                s.album = tracker["album"]["name"]
+            s.parse_tracker(tracker)
 
             songs.append(s)
 

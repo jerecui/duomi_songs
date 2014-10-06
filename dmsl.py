@@ -7,6 +7,10 @@ def main():
     songs = w.get_songs()
     print "\n".join([x.simple_info() for x in songs])
 
+    print '================='
+
+    print "\n".join([x.detail_info() for x in songs])
+
 
 if __name__ == "__main__":
     main()
